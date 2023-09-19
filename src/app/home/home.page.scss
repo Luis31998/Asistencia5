@@ -25,3 +25,20 @@
 #container a {
   text-decoration: none;
 }
+ion-content{
+
+  --ion-background-color:#060872;
+}
+ion-card{
+  --ion-background-color: #ffffff;
+}
+#Titulosobrefondo{
+  color: #ffffff;
+}
+
+ion-img {
+  display: float;
+  width: 100px;
+  height: 100px;
+  object-position: center top;
+}
