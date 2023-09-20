@@ -26,42 +26,18 @@
 
 <ion-content class="fondocontent">
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="3">
-        <!-- vacio -->
-      </ion-col>
-      <ion-col size="3">
-        <!-- icono de bomberos aqui -->
-      </ion-col>
-      <ion-col size="3">
-        <!-- vacio -->
-      </ion-col>
-    </ion-row>
-    <!-- siguiente fila -->
-    <ion-row>
-      <ion-col size="3">
-        <!-- vacio -->
-      </ion-col>
-      <ion-col size="7">
-        <!-- css para pone las letras blancas y destaquen en el fondo -->
-        <ion-img src="..\assets\img\logo-quinta-200px.png"></ion-img> <h2 id="Titulosobrefondo">Asistencia5</h2>
-      </ion-col>
-      <ion-col size="2">
-        <!-- vacio -->
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <!-- uso de grid en el icono y el titulo asistencia5 de la pagina para centrar -->
-  
+  <br>
+  <ion-img src="..\assets\img\logo-quinta-200px.png"></ion-img> <h2 id="Titulosobrefondo" class="ion-text-center">Asistencia5</h2>
   <!--  -->
   <ion-card>
-    <ion-card-header>Iniciar sesion</ion-card-header>
+    <ion-card-header class="ion-text-center">Iniciar sesion</ion-card-header>
     <ion-card-content>
-      <ion-input type="email" >Usuario</ion-input>
-      <ion-input type="password" >Contraseña</ion-input>
+      <ion-input fill="outline" type="email" >Usuario</ion-input>
+      <ion-input fill="outline" type="password" >Contraseña</ion-input>
+      <br>
       <ion-button (click)="ingresar()">iniciar sesion</ion-button>
-      <p></p>
+
+      <br><br>
       <!-- hacia component de recuperacion de contraseña por correo de usuario -->
       <ion-button >¿Se te olvido la contraseña?</ion-button>
     </ion-card-content>

@@ -34,11 +34,16 @@ ion-card{
 }
 #Titulosobrefondo{
   color: #ffffff;
+  object-position: center top;
+  align-items: center;
+
 }
 
 ion-img {
-  display: float;
+  display: block;
   width: 100px;
   height: 100px;
+  margin: auto;
   object-position: center top;
+  align-items: center;
 }
