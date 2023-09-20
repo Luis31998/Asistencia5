@@ -14,6 +14,8 @@ export class AsistentePage implements OnInit {
   }
 
   inicio(){}
-  parte(){}
+  parte(){
+    this.router.navigate(['asistente/parte'])
+  }
   cerrarSesion(){}
 }

@@ -49,19 +49,45 @@
       <ion-input label="Fecha" type="date"></ion-input>
 
       <ion-input label="Clave" type="text"></ion-input>
-      <ion-input label="N° servicio " type="number"></ion-input>
+
+      <ion-list>
+        <ion-item label="Asistencias">
+          <ion-select aria-label="bomberos" placeholder="añadir bomberos" [multiple]="true">
+            <ion-select-option value="any">*</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item label="OBAC del servicio">
+          <ion-select aria-label="OBAC" placeholder="Seleccione OBAC">
+            <ion-select-option value="any">*</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
       <ion-input label="Obac del servicio "></ion-input>
+
+      <ion-input label="N° servicio " type="number"></ion-input>
+
+      <ion-input label="Observaciones/daños"></ion-input>
+      
       <ion-input label="Direccion" type="text"></ion-input>
-      <ion-input label="------"></ion-input>
+
+      <ion-input label="------ agregar fila de campos opcional"></ion-input>
+      
+      
+      <ion-input label="-------"></ion-input>
+      <ion-input label="Despacho?"></ion-input>
+      <ion-input label="Maquinas de apoyo"></ion-input>
+      <ion-input label="Otras instituciones"></ion-input>
+      <ion-input label="Registro monitoreo"></ion-input>
       <ion-input label="Maquina 51 salida" type="datetime-local"></ion-input>
       <ion-input label="Llegada"></ion-input>
       <ion-input label="Mando"></ion-input>
       <ion-input label="Conductor"></ion-input>
-      <ion-input label="-------"></ion-input>
-      <ion-input label="Maquinas de apoyo"></ion-input>
-      <ion-input label="Otras instituciones"></ion-input>
-      <ion-input label="Observaciones/daños"></ion-input>
-      <ion-input label="Registro monitoreo"></ion-input>
+      <ion-input label="Involucrados"></ion-input>
+      
+      
       <ion-input label="Origen/Causa"></ion-input>
       <ion-input label="aqui se pone qr"></ion-input>
       <ion-input label="Uso de ERA si no cantidad cilindros disponibles"></ion-input>

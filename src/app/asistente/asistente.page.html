@@ -1,23 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>asistente</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
   
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title size="large">Asistencia 5</ion-title>
+        <h2>Asistencia 5</h2>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <h4>Menu</h4>
-      <ion-button (click)="inicio()">Inicio</ion-button>
-      <ion-button (click)="parte()">Nuevo parte</ion-button>
-      <ion-button>Origen y causa</ion-button>
-      <ion-button (click)="cerrarSesion()">Cerrar sesion</ion-button>
+      <ion-button expand="block" fill="outline" (click)="inicio()">Inicio</ion-button>
+      <ion-button expand="block" fill="outline" (click)="parte()">Nuevo parte</ion-button>
+      <ion-button expand="block" fill="outline">Origen y causa</ion-button>
+      <ion-button expand="block" fill="outline" (click)="cerrarSesion()">Cerrar sesion</ion-button>
     </ion-content>
   </ion-menu>
   
@@ -27,14 +23,14 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Menu</ion-title>
+        <ion-title>Asistencia 5</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
   
-      <ion-button fill="outline">
+      <ion-button expand="block" fill="outline" (click)="parte()">
         <ion-icon name="document-text-outline"></ion-icon>
-        Nuevo <br>
+        Nuevo 
         Parte
       </ion-button>
   

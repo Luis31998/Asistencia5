@@ -60,10 +60,10 @@
     <ion-card-content>
       <ion-input type="email" >Usuario</ion-input>
       <ion-input type="password" >Contraseña</ion-input>
-      <ion-button>iniciar sesion</ion-button>
+      <ion-button (click)="ingresar()">iniciar sesion</ion-button>
       <p></p>
       <!-- hacia component de recuperacion de contraseña por correo de usuario -->
-      <ion-button (click)="ingresar()">¿Se te olvido la contraseña?</ion-button>
+      <ion-button >¿Se te olvido la contraseña?</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

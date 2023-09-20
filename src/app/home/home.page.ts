@@ -13,7 +13,7 @@ export class HomePage {
   constructor(private router: Router) {}
 
   ingresar(){
-    this.router.navigate(['home'])
+    this.router.navigate(['asistente'])
   }
 
 }
