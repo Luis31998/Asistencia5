@@ -25,21 +25,22 @@
 
 
 <ion-content class="fondocontent">
+  <div class="logo-container">
+    <ion-img src="../assets/img/logo-quinta-200px.png"></ion-img>
+    <h2 id="Titulosobrefondo" class="ion-text-center">Asistencia5</h2>
+  </div>
 
-  <br>
-  <ion-img src="..\assets\img\logo-quinta-200px.png"></ion-img> <h2 id="Titulosobrefondo" class="ion-text-center">Asistencia5</h2>
-  <!--  -->
   <ion-card>
-    <ion-card-header class="ion-text-center">Iniciar sesion</ion-card-header>
+    <ion-card-header class="ion-text-center">Iniciar sesión</ion-card-header>
     <ion-card-content>
-      <ion-input fill="outline" type="email" >Usuario</ion-input>
-      <ion-input fill="outline" type="password" >Contraseña</ion-input>
-      <br>
-      <ion-button (click)="ingresar()">iniciar sesion</ion-button>
-
-      <br><br>
-      <!-- hacia component de recuperacion de contraseña por correo de usuario -->
-      <ion-button >¿Se te olvido la contraseña?</ion-button>
+      <div class="input-login">
+        <ion-input type="email" placeholder="E-mail"></ion-input>
+        <ion-input type="password" placeholder="Contraseña"></ion-input>
+      </div>
+      <div class="botones-container">
+        <ion-button (click)="ingresar()">Iniciar sesión</ion-button>
+        <ion-button>Recuperar Contraseña</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
