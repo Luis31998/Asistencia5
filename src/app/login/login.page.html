@@ -1,0 +1,20 @@
+<ion-content class="fondocontent">
+  <div class="logo-container">
+    <ion-img src="../assets/img/logo-quinta-200px.png"></ion-img>
+    <h2 id="Titulosobrefondo" class="ion-text-center">Asistencia5</h2>
+  </div>
+
+  <ion-card>
+    <ion-card-header class="ion-text-center">Iniciar sesión</ion-card-header>
+    <ion-card-content>
+      <div class="input-login">
+        <ion-input placeholder="E-mail" type="email" required [(ngModel)]="user.email"></ion-input>
+        <ion-input placeholder="Contraseña" type="password" required [(ngModel)]="user.password"></ion-input>
+      </div>
+      <div class="botones-container">
+        <ion-button (click)="login(user)">Iniciar sesión</ion-button>
+        <ion-button>Recuperar Contraseña</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

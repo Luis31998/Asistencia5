@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {ParteComponent} from './parte/parte.component';
 
 const routes: Routes = [
   {
@@ -9,22 +8,17 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path: 'asistente',
-    loadChildren: () => import('./asistente/asistente.module').then( m => m.AsistentePageModule)
-  },{
-  path:'parte', component: ParteComponent},
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
   {
-    path: 'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
-  },  {
     path: 'partes',
     loadChildren: () => import('./partes/partes.module').then( m => m.PartesPageModule)
-  },
-
+  }
 ];
 
 @NgModule({
