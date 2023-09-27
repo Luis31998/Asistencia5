@@ -8,9 +8,9 @@
       
       <ion-toolbar >
         <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
+          <ion-menu-button color="light"></ion-menu-button>
         </ion-buttons>
-        <ion-title>Asistencia 5</ion-title>
+        <ion-title id="titulopage">Asistencia 5</ion-title>
       </ion-toolbar>
     </ion-header>
   </div>
@@ -28,65 +28,26 @@
       <ion-button expand="block" fill="outline" (click)="cerrarSesion()">Cerrar sesion</ion-button>
     </ion-content>
   </ion-menu>
+
+  <!-- Aqui comienza el formulario -->
   
-    <!-- <div class="ion-page" id="main-content2">
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title>Asistencia 5</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    </div> -->
-  <!-- </ion-header> -->
-  <!-- <ion-header>
-    <ion-toolbar>
-      <h2>Asistencia 5</h2>
-    </ion-toolbar>
-  </ion-header>
-  <ion-menu contentId="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <h2>Asistencia 5</h2>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <h4>Menu</h4>
-      <ion-button expand="block" fill="outline" (click)="inicio()">Inicio</ion-button>
-      <ion-button expand="block" fill="outline" (click)="parte()">Nuevo parte</ion-button>
-      <ion-button expand="block" fill="outline">Origen y causa</ion-button>
-      <ion-button expand="block" fill="outline" (click)="cerrarSesion()">Cerrar sesion</ion-button>
-    </ion-content>
-  </ion-menu>
-
-  <div class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Asistencia 5</ion-title>
-      </ion-toolbar>
-    </ion-header>
-   -->
-
-
-
-
-
     <ion-card>
       <ion-card-header>
         <ion-card-title>Redaccion de Parte</ion-card-title>
         </ion-card-header>
       <ion-card-content>
-        <ion-input label="Fecha" type="date"></ion-input>
+        <ion-list>
+          <ion-item>
+            <ion-input class="custom-label" label="Fecha" type="date" [(ngModel)]="miFecha"></ion-input>
+          </ion-item>
+        </ion-list>
+        
 
         <ion-input label="Clave" type="text"></ion-input>
 
         <ion-list>
           <ion-item label="Asistencias">
-            <ion-select aria-label="bomberos" placeholder="añadir bomberos" [multiple]="true">
+            <ion-select class="custom-label" aria-label="bomberos" placeholder="añadir bomberos" [multiple]="true">
               <ion-select-option value="any">*</ion-select-option>
             </ion-select>
           </ion-item>
@@ -94,24 +55,27 @@
 
         <ion-list>
           <ion-item label="OBAC del servicio">
-            <ion-select aria-label="OBAC" placeholder="Seleccione OBAC">
+            <ion-select class="custom-label" aria-label="OBAC" placeholder="Seleccione OBAC">
               <ion-select-option value="any">*</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
-        <ion-input label="Obac del servicio "></ion-input>
+        <ion-input class="custom-label" label="Obac del servicio "></ion-input>
 
-        <ion-input label="N° servicio " type="number"></ion-input>
+        <ion-input class="custom-label" label="N° servicio " type="number"></ion-input>
 
-        <ion-input label="Observaciones/daños"></ion-input>
+        <ion-input class="custom-label" label="Observaciones/daños"></ion-input>
         
-        <ion-input label="Direccion" type="text"></ion-input>
+        <ion-input class="custom-label" label="Direccion" type="text"></ion-input>
 
         <!-- <ion-input label="------ agregar fila de campos opcional"></ion-input> -->
 
         <ion-list>
           <!-- Aquí está el botón que abrirá el ion-select -->
-          <ion-button (click)="openSelector()">Mostrar Selector</ion-button>
+          <ion-button size="large" expand="block" fill="outline" color="success" (click)="openSelector()">
+            <ion-icon name="add-circle-outline" color="success"> </ion-icon>
+            Añadir informacion
+          </ion-button>
           <!-- selector -->
           <ion-item style="display: none;">
             <ion-label>Seleccione una opción</ion-label>
@@ -120,10 +84,18 @@
             </ion-select>
           </ion-item>
       
+
           <div *ngFor="let field of fields; let i = index">
+            <p>{{ miTexto }}</p>
             <ion-item>
               <ion-label>{{ field.label }}</ion-label>
-              <ion-input [type]="field.type" [(ngModel)]="field.value"></ion-input>
+              <ion-input *ngIf="field.type !== 'time'" [type]="field.type" [(ngModel)]="field.value"></ion-input>
+
+              <!-- Campo para seleccionar la hora -->
+              <ion-input *ngIf="field.type === 'time'">
+                <input id="reloj" type="time" [(ngModel)]="field.value"/>
+              </ion-input>
+
               <ion-button slot="end" (click)="removeField(i)">Borrar</ion-button>
             </ion-item>
           </div>
@@ -132,25 +104,7 @@
           <ion-button (click)="addField()">Agregar campo</ion-button>
         </ion-list>
         
-        
         <!--  -->
-        
-        
-        <ion-input label="-------"></ion-input>
-        <ion-input label="Despacho?"></ion-input>
-        <ion-input label="Maquinas de apoyo"></ion-input>
-        <ion-input label="Otras instituciones"></ion-input>
-        <ion-input label="Registro monitoreo"></ion-input>
-        <ion-input label="Maquina 51 salida" type="datetime-local"></ion-input>
-        <ion-input label="Llegada"></ion-input>
-        <ion-input label="Mando"></ion-input>
-        <ion-input label="Conductor"></ion-input>
-        <ion-input label="Involucrados"></ion-input>
-        
-        
-        <ion-input label="Origen/Causa"></ion-input>
-        <ion-input label="aqui se pone qr"></ion-input>
-        <ion-input label="Uso de ERA si no cantidad cilindros disponibles"></ion-input>
 
       </ion-card-content>
       <ion-row class="cardfooter">
@@ -160,4 +114,12 @@
         </ion-col>
       </ion-row>
     </ion-card>
+
+    <div>
+      <br>
+      <ion-img src="..\assets\img\Uso de ERA.png"></ion-img>
+      <br>
+      <p id="labelqr">Uso de ERA</p>
+      <br>
+    </div>
 </ion-content>

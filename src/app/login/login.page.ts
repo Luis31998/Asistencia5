@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UserRoleService } from '../services/user-role.service'; // Importa el servicio
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,9 @@ export class LoginPage implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private afAuth: AngularFireAuth,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private firestore: AngularFirestore,
+    private userRoleService: UserRoleService // Inyecta el servicio
   ) { }
 
   ngOnInit() {}
@@ -29,18 +33,34 @@ export class LoginPage implements OnInit {
       });
       await loader.present();
 
-     
       try {
-        await this.afAuth.signInWithEmailAndPassword(user.email, user.password).then(data =>{
-          console.log(data);
-
-          this.navCtrl.navigateRoot("home");
-        })
+        const credentials = await this.afAuth.signInWithEmailAndPassword(user.email, user.password);
         
-      } catch (e:any) {
+        if (credentials.user) {
+          // Autenticación exitosa
+          console.log(credentials.user);
+
+          // Obtener el documento del usuario basado en el UID
+          const userDoc = this.firestore.collection('users').doc(credentials.user.uid).valueChanges();
+          userDoc.subscribe((userData: any) => {
+            if (userData) {
+              console.log('Documento del usuario:', userData);
+
+              // Establecer el rol en el servicio UserRoleService
+              this.userRoleService.setRole(userData.role);
+
+              // Redirigir al usuario a la página de inicio
+              this.navCtrl.navigateRoot("home");
+            } else {
+              this.showToast("Usuario no registrado");
+            }
+          });
+        } else {
+          this.showToast("Usuario no registrado");
+        }
+      } catch (e: any) {
         e.message = "Usuario no registrado";
         let errorMessage = e.message || e.getLocalizedMessage();
-        
         this.showToast(errorMessage);     
       }
 
@@ -65,8 +85,9 @@ export class LoginPage implements OnInit {
   showToast(message: string) {
     this.toastCtrl.create({
       message: message,
-      duration: 5000 // Aumenta la duración del mensaje a 5 segundos
+      duration: 5000
     }).then(toastData => toastData.present());
   }
-
 }
+
+
