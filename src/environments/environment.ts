@@ -12,7 +12,10 @@ export const environment = {
     storageBucket: "asistencia5.appspot.com",
     messagingSenderId: "449957735465",
     appId: "1:449957735465:web:1852c671b7e0236418c038"
-  }
+  },
+
+  // Añade tus variables aquí:
+  
 };
 
 /*

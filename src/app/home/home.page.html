@@ -4,15 +4,19 @@
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <h2 id="Titulos">Asistencia 5</h2>
+        <h2>Asistencia 5</h2>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <h4>Menu</h4>
       <ion-button expand="block" fill="outline">Inicio</ion-button>
-      <ion-button expand="block" fill="outline">Nuevo parte</ion-button>
-      <ion-button expand="block" fill="outline">Origen y causa</ion-button>
-      <ion-button expand="block" fill="outline">Cerrar sesion</ion-button>
+      <ion-button expand="block" fill="outline" (click)="parte()">Nuevo parte</ion-button>
+      <ion-button expand="block" fill="outline" *ngIf="isAyudante()">Gestion de bomberos</ion-button>
+      <ion-button expand="block" fill="outline" *ngIf="isAyudante()">Informes</ion-button>
+      <ion-button expand="block" fill="outline" href="https://docs.google.com/forms/d/e/1FAIpQLSeyhnERaJGfjS5CwPjF15sY-P0Un3rn-o12pXbN1Foud8u6XA/viewform">Origen y causa</ion-button>
+      <ion-button expand="block" fill="outline" (click)="administrar()">Administrar bomberos</ion-button>
+      <ion-button expand="block" fill="outline" (click)="logout()">Cerrar sesión</ion-button>
+
     </ion-content>
   </ion-menu>
   
@@ -20,7 +24,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-menu-button color="light"></ion-menu-button>
+          <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>Asistencia 5</ion-title>
       </ion-toolbar>

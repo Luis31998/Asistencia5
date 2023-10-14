@@ -1,18 +1,18 @@
 ion-toolbar{
 
-    --ion-background-color:#171742;
-  }
+  --ion-background-color:#171742;
+}
 
 #titulopage{
-    color: #ffffff;
-    text-align: center;
+  color: #ffffff;
+  text-align: center;
 }
 
 ion-img {
-    display: block;
-    width: 100px;
-    height: 100px;
-    margin: auto;
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: auto;
 }
 
 .custom-label {
@@ -21,12 +21,28 @@ text-decoration: underline;
 }
 
 #labelqr {
-    text-align: center;
-  }
+  text-align: center;
+}
 
 
 #reloj{
-    height: auto;
-    width: auto;
-    
+  height: auto;
+  width: auto;
+  
+}
+
+.dashed-outline-button {
+  --border-style: dashed;
+  --border-width: 2px;
+  --border-color: black;  // Borde negro
+  --color: black;         // Texto negro
+  --background: white;    // Fondo blanco
+  &:hover,
+  &.ion-activatable-instant {
+  --background: white;  // Fondo blanco también cuando se pasa el ratón por encima
+}
+}
+.bordered-card {
+  border: 2px solid black; // Esto añadirá un borde negro de 2px
+  border-radius: 10px; // Esto redondeará las esquinas del borde (opcional)
 }

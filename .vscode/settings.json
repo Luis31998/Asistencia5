@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/1f961d0d-7b55-486e-bb06-e9531ba58551/resourceGroups/recursos_1/providers/Microsoft.Web/sites/APIasistencia5",
+    "appService.deploySubpath": "myapi5"
+}

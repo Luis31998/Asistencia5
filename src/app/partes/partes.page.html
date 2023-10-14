@@ -31,7 +31,7 @@
 
   <!-- Aqui comienza el formulario -->
   
-    <ion-card>
+    <ion-card class="bordered-card">
       <ion-card-header>
         <ion-card-title>Redaccion de Parte</ion-card-title>
         </ion-card-header>
@@ -48,7 +48,7 @@
         <ion-list>
           <ion-item label="Asistencias">
             <ion-select class="custom-label" aria-label="bomberos" placeholder="añadir bomberos" [multiple]="true">
-              <ion-select-option value="any">*</ion-select-option>
+              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.id">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
@@ -56,23 +56,22 @@
         <ion-list>
           <ion-item label="OBAC del servicio">
             <ion-select class="custom-label" aria-label="OBAC" placeholder="Seleccione OBAC">
-              <ion-select-option value="any">*</ion-select-option>
+              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.id">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
-        <ion-input class="custom-label" label="Obac del servicio "></ion-input>
 
         <ion-input class="custom-label" label="N° servicio " type="number"></ion-input>
-
-        <ion-input class="custom-label" label="Observaciones/daños"></ion-input>
         
-        <ion-input class="custom-label" label="Direccion" type="text"></ion-input>
+        <ion-input class="custom-label" label="Direccion" type="text" [(ngModel)]="direccion"></ion-input>
+
+        <ion-input class="custom-label" label="Observaciones/daños" [(ngModel)]="observacion"></ion-input>
 
         <!-- <ion-input label="------ agregar fila de campos opcional"></ion-input> -->
 
         <ion-list>
           <!-- Aquí está el botón que abrirá el ion-select -->
-          <ion-button size="large" expand="block" fill="outline" color="success" (click)="openSelector()">
+          <ion-button class="dashed-outline-button" size="large" expand="block" outline (click)="openSelector()">
             <ion-icon name="add-circle-outline" color="success"> </ion-icon>
             Añadir informacion
           </ion-button>
@@ -85,23 +84,22 @@
           </ion-item>
       
 
+          <p>{{ miTexto }}</p>
           <div *ngFor="let field of fields; let i = index">
-            <p>{{ miTexto }}</p>
+            
             <ion-item>
-              <ion-label>{{ field.label }}</ion-label>
-              <ion-input *ngIf="field.type !== 'time'" [type]="field.type" [(ngModel)]="field.value"></ion-input>
+              <!-- <ion-label>{{ field.label }}</ion-label> -->
+              <ion-input *ngIf="field.type !== 'time'" [type]="field.type" [(ngModel)]="field.value" (ngModelChange)="updateValue(field.reference, $event)">{{ field.label }}</ion-input>
 
               <!-- Campo para seleccionar la hora -->
-              <ion-input *ngIf="field.type === 'time'">
-                <input id="reloj" type="time" [(ngModel)]="field.value"/>
-              </ion-input>
+              <ion-input *ngIf="field.label === 'Salida'" type="time" [(ngModel)]="horaDespacho"></ion-input>
+              <ion-input *ngIf="field.label === 'Llegada'" type="time" [(ngModel)]="horaLlegada"></ion-input>
 
               <ion-button slot="end" (click)="removeField(i)">Borrar</ion-button>
             </ion-item>
           </div>
       
           <br>
-          <ion-button (click)="addField()">Agregar campo</ion-button>
         </ion-list>
         
         <!--  -->
@@ -110,16 +108,9 @@
       <ion-row class="cardfooter">
         <ion-col>
               <ion-button fill="outline" color="dark">Cancelar</ion-button>
-              <ion-button fill="solid" color="success">Guardar y Continuar</ion-button>
+              <ion-button fill="solid" color="success" (click)="guardar()">Guardar y Continuar</ion-button>
         </ion-col>
       </ion-row>
     </ion-card>
 
-    <div>
-      <br>
-      <ion-img src="..\assets\img\Uso de ERA.png"></ion-img>
-      <br>
-      <p id="labelqr">Uso de ERA</p>
-      <br>
-    </div>
 </ion-content>
