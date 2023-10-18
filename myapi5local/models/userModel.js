@@ -61,7 +61,7 @@ exports.deleteBomberos = (id) => {
 // Obtener todos los claves de despacho
 exports.getAllClavesDespacho = () => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM CLAVES_DESPACHO', (error, results) => {
+        db.query('SELECT * FROM CLAVE_DESPACHO', (error, results) => {
             if (error) reject(error);
             resolve(results);
         });

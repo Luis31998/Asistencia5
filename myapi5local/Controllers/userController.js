@@ -108,7 +108,7 @@ exports.getAllMaquinas = async (req, res) => {
 // Obtener Maquinas
 exports.getAllUnidadExterna = async (req, res) => {
     try {
-        const Maquinas = await userModel.getAllUnidadExterna();
+        const UnidadApoyo = await userModel.getAllUnidadExterna();
         res.json(UnidadApoyo);
     } catch (error) {
         res.status(500).json({ error: error.message });
