@@ -42,26 +42,32 @@
           </ion-item>
         </ion-list>
         
-
-        <ion-input label="Clave" type="text"></ion-input>
-
         <ion-list>
-          <ion-item label="Asistencias">
-            <ion-select class="custom-label" aria-label="bomberos" placeholder="añadir bomberos" [multiple]="true">
-              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.id">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
+          <ion-item label="Clave Despacho">
+            <ion-select class="custom-label" placeholder="Seleccionar clave de despacho" [(ngModel)]="codClaveDespacho">
+              <ion-select-option *ngFor="let clave of clavedespacho" [value]="clave.COD_CLAVE_DESPACHO">{{ clave.DESCRIPCION }}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
+
+        <ion-list>
+          <ion-item label="Asistencias">
+            <ion-select class="custom-label" aria-label="bomberos" placeholder="añadir bomberos" [(ngModel)]="selectedBomberos" [multiple]="true">
+              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.NUM_ANTIGUEDAD">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        
 
         <ion-list>
           <ion-item label="OBAC del servicio">
             <ion-select class="custom-label" aria-label="OBAC" placeholder="Seleccione OBAC">
-              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.id">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
+              <ion-select-option *ngFor="let bombero of bomberos" [value]="bombero.NUM_ANTIGUEDAD">{{ bombero.NOMBRE }} {{bombero.P_APELLIDO}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
 
-        <ion-input class="custom-label" label="N° servicio " type="number"></ion-input>
+        <ion-input class="custom-label" label="N° servicio " type="number" [(ngModel)]="numServicio"></ion-input>
         
         <ion-input class="custom-label" label="Direccion" type="text" [(ngModel)]="direccion"></ion-input>
 
@@ -94,6 +100,11 @@
               <!-- Campo para seleccionar la hora -->
               <ion-input *ngIf="field.label === 'Salida'" type="time" [(ngModel)]="horaDespacho"></ion-input>
               <ion-input *ngIf="field.label === 'Llegada'" type="time" [(ngModel)]="horaLlegada"></ion-input>
+
+              <ion-label *ngIf="field.type === 'select'">{{ field.label }}</ion-label>
+              <ion-select *ngIf="field.type === 'select'" [(ngModel)]="field.value" (ngModelChange)="updateValue(field.reference, $event)">
+                  <ion-select-option *ngFor="let option of field.options" [value]="option[field.valueField]">{{ option[field.displayField] }}</ion-select-option>
+              </ion-select>
 
               <ion-button slot="end" (click)="removeField(i)">Borrar</ion-button>
             </ion-item>

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { IonLabel, IonSelect } from '@ionic/angular';
 import { ApiService } from '../services/api-bd.service';
 import { Time } from '@angular/common';
+import { Parte } from '../interfaces/parte';
+
 
 @Component({
   selector: 'app-partes',
@@ -26,11 +28,22 @@ export class PartesPage implements OnInit {
   observacion: string ='';
   codClaveDespacho: string ='';
 
+
+  initialCodClaveDespacho: string = '';
+
+
   rutInvolucrado: string ='';
   nombreInvolucrado: string ='';
   primerApellidoInvolucrado: string ='';
   segundoApellidoInvolucrado: string ='';
   observacionInvolucrado: string ='';
+
+  // Tus variables iniciales
+  initialRutInvolucrado: string = '';
+  initialNombreInvolucrado: string = '';
+  initialPrimerApellidoInvolucrado: string = '';
+  initialSegundoApellidoInvolucrado: string = '';
+  initialObservacionInvolucrado: string = '';
 
   horaDespacho: string = '';
   horaLlegada: string = '';
@@ -38,18 +51,40 @@ export class PartesPage implements OnInit {
   idUnidad: number = 0;
   selectedMaquinista: number = 0;
 
+  initialHoraDespacho: string = '';
+  initialHoraLlegada: string = '';
+  initialIdParte: number = 0;
+  initialIdUnidad: number = 0;
+  initialSelectedMaquinista: number = 0;
+
+
   codClaveRecurso: string = '';
 
+  initialCodClaveRecurso: string = '';
+
+
   idUnidadExterna: string = '';
+
+  initialIdUnidadExterna: string = '';
 
   patente: string = '';
   marca: string = '';
   modelo: string = '';
 
+  initialPatente: string = '';
+  initialMarca: string = '';
+  initialModelo: string = '';
+
+
   lel: number = 0;
   o2: number = 0;
   co: number = 0;
   h2s: number = 0;
+
+  initialLel: number = 0;
+  initialO2: number = 0;
+  initialCo: number = 0;
+  initialH2s: number = 0;
 
 
   bomberos: any[] = [];
@@ -58,6 +93,9 @@ export class PartesPage implements OnInit {
   unidades: any[] = [];
   unidadesexternas: any[] = [];
   maquinistas: any[] = [];
+
+  selectedBomberos: number[] = [];
+
 
   options = [
     { value: 'opcion1', label: 'Despacho' },
@@ -98,21 +136,21 @@ export class PartesPage implements OnInit {
         // agregar campos para la opción 1
         this.fields.push({ type: 'time', label: 'Salida', reference: 'horaDespacho' });
         this.fields.push({ type: 'time', label: 'Llegada', reference: 'horaLlegada'});
-        this.fields.push({ type: 'text', label: 'unidad', reference: 'idUnidad' });
-        this.fields.push({ type: 'text', label: 'Conductor', reference: 'selectedMaquinista' });
+        this.fields.push({ type: 'select', label: 'Unidad', reference: 'idUnidad', options: this.unidades, valueField: 'ID_UNIDAD', displayField: 'NOMBRE_UNIDAD' });
+        this.fields.push({ type: 'select', label: 'Conductor', reference: 'selectedMaquinista', options: this.maquinistas, valueField: 'ID_MAQUINISTA', displayField: 'NOMBRE_MAQUINISTA' });
         // ... agregar más campos si es necesario
         break;
       case 'opcion2':
         this.miTexto = 'Maquinas de apoyo'
         // agregar campos para la opción 2
-        this.fields.push({ type: 'text', label: 'unidad externa', reference: 'idUnidadExterna'});
+        this.fields.push({ type: 'select', label: 'unidad externa', reference: 'idUnidadExterna', options: this.unidadesexternas, valueField: 'ID_UNIDAD_EXTERNA', displayField: 'NOMBRE_UNIDAD' });
         // ... agregar más campos si es necesario
         break;
       // ... otros casos
       case 'opcion3':
         this.miTexto = 'Otras instituciones'
         // agregar campos para la opción 3
-        this.fields.push({ type: 'text', label: 'Otras instituciones', reference: 'codClaveRecurso' });
+        this.fields.push({ type: 'select', label: 'Otras instituciones', reference: 'codClaveRecurso', options: this.claverecursos, valueField: 'COD_CLAVE_RECURSO', displayField: 'DESCRIPCION' });
         // ... agregar más campos si es necesario
         break;
       case 'opcion4':
@@ -150,10 +188,12 @@ export class PartesPage implements OnInit {
   }
 
   cerrarSesion(){
-    this.router.navigate(['home'])
+    this.router.navigate([''])
   }
   
-  inicio(){}
+  inicio(){
+    this.router.navigate(['home'])
+  }
   parte(){
     this.router.navigate(['partes'])
   }
@@ -206,109 +246,228 @@ export class PartesPage implements OnInit {
   //// A PARTIR DE AQUI SON LOS METODOS DE GUARDAR LOS DATOS POR EL BOTON DE GUARDAR.
 
   guardar() {
-    // Aquí recopilas los datos del formulario. Este es solo un ejemplo simple:
-    const dataPartes = {
-      NUMSERVICIO: this.numServicio,
-      FECHA: this.miFecha,
-      DIRECCION: this.direccion,
-      OBSERVACION: this.observacion,
-      COD_CLAVE_DESPACHO: this.codClaveDespacho
-    };
 
-    const dataInvolucrados = {
-      T_INVOLUCRADO: this.rutInvolucrado, 
-      NOMBRE: this.nombreInvolucrado,
-      P_APELLIDO: this.primerApellidoInvolucrado,
-      S_APELLIDO: this.segundoApellidoInvolucrado,
-      OBSERVACION: this.observacionInvolucrado
-    };
+    this.insertarParte().then(generatedId => {
+      this.idParte = generatedId;
 
-    const dataUniDespacho = {
-      HORA_DESPACHO: this.horaDespacho,
-      HORA_LLEGADA: this.horaLlegada,
-      // ID_PARTE: this.idParte, 
-      ID_UNIDAD: this.idUnidad, 
-      ID_MAQUINISTA: this.selectedMaquinista 
-    };
-
-    const dataRecurso = {
-      COD_CLAVE_DESPACHO: this.codClaveDespacho,
-      // ID_PARTE: this.idParte, 
-      COD_CLAVE_RECURSO: this.codClaveRecurso
-    };
-
-    const dataApoyo = {
-      COD_CLAVE_DESPACHO: this.codClaveDespacho,
-      // ID_PARTE: this.idParte, 
-      ID_UNIDAD_EXTERNA: this.idUnidadExterna
-    };
-
-    const dataVehiculos = {
-      PATENTE: this.patente,
-      MARCA: this.marca,
-      MODELO: this.modelo, 
-    };
-
-    const dataMonitoreo = {
-      LEL: this.lel,
-      O2: this.o2,
-      CO: this.co,
-      H2S: this.h2s,
-    };
-
-    // Luego llamas al servicio para guardar los datos
-    this.apiService.addPartes(dataPartes).subscribe(response => {
-        // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-        // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-      //Otro conjunto de datos para una tabla
-
-      this.apiService.addInvolucrados(dataInvolucrados).subscribe(response => {
-        // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-        // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-    //Otro conjunto de datos para una tabla
-
-    this.apiService.addUnidadDespacho(dataUniDespacho).subscribe(response => {
-      // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-      // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-
-
-    this.apiService.addRecurso(dataRecurso).subscribe(response => {
-      // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-      // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-    //Otro conjunto de datos para una tabla
-
-    this.apiService.addApoyo(dataApoyo).subscribe(response => {
-      // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-      // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-    //Otro conjunto de datos para una tabla
-
-    this.apiService.addVehiculos(dataVehiculos).subscribe(response => {
-      // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-      // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
-    });
-
-    //Otro conjunto de datos para una tabla
-
-    this.apiService.addMonitoreo(dataMonitoreo).subscribe(response => {
-      // Por ejemplo, podrías mostrar un toast o alerta indicando que el guardado fue exitoso.
-    }, error => {
-      // Aquí manejas los errores, por ejemplo, mostrando un mensaje al usuario.
+      return this.insertarAsistencias();
+    }).then(() => {
+      return this.insertarInvolucrados();
+    }).then(() => {
+        return this.insertarUniDespacho();
+    }).then(() => {
+        return this.insertarRecurso();
+    }).then(() => {
+        return this.insertarApoyo();
+    }).then(() => {
+        return this.insertarVehiculos();
+    }).then(() => {
+        return this.insertarMonitoreo();
+    }).catch(error => {
+        console.error("Hubo un error durante las inserciones:", error);
+        // Aquí puedes manejar errores generales o mostrar un mensaje al usuario.
     });
   }
+
+  insertarParte(): Promise<number> {
+    return new Promise((resolve, reject) => {
+        const dataPartes = {
+          NUM_SERVICIO: this.numServicio,
+          FECHA: this.miFecha,
+          DIRECCION: this.direccion,
+          OBSERVACION: this.observacion,
+          COD_CLAVE_DESPACHO: this.codClaveDespacho
+        };
+
+        this.apiService.addPartes(dataPartes).subscribe((response: any) => {
+            const generatedId = response.ID_PARTE;
+            resolve(generatedId); // Resuelve la promesa con el ID
+        }, error => {
+            // manejar error
+            reject(error);
+        });
+    });
+  }
+
+  insertarAsistencias(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const promises = this.selectedBomberos.map(bomberoAntiguedad => {
+        const dataAsistencia = {
+          NUM_ANTIGUEDAD: bomberoAntiguedad,
+          COD_CLAVE_DESPACHO: this.codClaveDespacho,
+          ID_PARTE: this.idParte
+        };
+  
+        console.log("ID_PARTE generado:", this.idParte);
+
+        // Aquí, asumo que tienes un método en tu apiService llamado addAsistencia, 
+        // que guarda cada asistencia en la tabla BOMBERO_PARTE.
+        return this.apiService.addAsistenciaBomberos(dataAsistencia).toPromise();
+      });
+  
+      // Ejecuta todas las promesas y resuelve una vez que todas hayan terminado
+      Promise.all(promises).then(() => {
+        resolve();
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  insertarInvolucrados(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        if (this.rutInvolucrado !== this.initialRutInvolucrado || 
+            this.nombreInvolucrado !== this.initialNombreInvolucrado ||
+            this.primerApellidoInvolucrado !== this.initialPrimerApellidoInvolucrado ||
+            this.segundoApellidoInvolucrado !== this.initialSegundoApellidoInvolucrado ||
+            this.observacionInvolucrado !== this.initialObservacionInvolucrado) {
+            
+            const dataInvolucrados = {
+              T_INVOLUCRADO: this.rutInvolucrado, 
+              NOMBRE: this.nombreInvolucrado,
+              P_APELLIDO: this.primerApellidoInvolucrado,
+              S_APELLIDO: this.segundoApellidoInvolucrado,
+              OBSERVACION: this.observacionInvolucrado  
+            };
+
+            this.apiService.addInvolucrados(dataInvolucrados).subscribe(response => {
+                resolve(); 
+            }, error => {
+                reject(error);
+            });
+        } else {
+            // Si los datos no han cambiado, simplemente resuelve la promesa sin hacer nada.
+            resolve();
+        }
+    });
+  }
+
+  insertarUniDespacho(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        // Verifica si los datos actuales difieren de los datos iniciales
+        if (this.horaDespacho !== this.initialHoraDespacho &&
+            this.horaLlegada !== this.initialHoraLlegada &&
+            this.idParte !== this.initialIdParte &&
+            this.idUnidad !== this.initialIdUnidad &&
+            this.selectedMaquinista !== this.initialSelectedMaquinista) {
+
+            const dataUniDespacho = {
+                HORA_DESPACHO: this.horaDespacho,
+                HORA_LLEGADA: this.horaLlegada,
+                ID_PARTE: this.idParte,
+                ID_UNIDAD: this.idUnidad,
+                ID_MAQUINISTA: this.selectedMaquinista
+            };
+
+            this.apiService.addUnidadDespacho(dataUniDespacho).subscribe(response => {
+                resolve();
+            }, error => {
+                reject(error);
+            });
+        } else {
+            resolve(); // Si no hay cambios, simplemente resolver la promesa
+        }
+    });
+  }
+
+  insertarRecurso(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        // Verifica si los datos actuales difieren de los datos iniciales
+        if (this.codClaveDespacho !== this.initialCodClaveDespacho &&
+            this.idParte !== this.initialIdParte &&
+            this.codClaveRecurso !== this.initialCodClaveRecurso) {
+
+            const dataRecurso = {
+                COD_CLAVE_DESPACHO: this.codClaveDespacho,
+                ID_PARTE: this.idParte,
+                COD_CLAVE_RECURSO: this.codClaveRecurso
+            };
+
+            this.apiService.addRecurso(dataRecurso).subscribe(response => {
+                resolve();
+            }, error => {
+                reject(error);
+            });
+        } else {
+            resolve(); // Si no hay cambios, simplemente resolver la promesa
+        }
+    });
+  }
+
+  insertarApoyo(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        // Verifica si los datos actuales difieren de los datos iniciales
+        if (this.codClaveDespacho !== this.initialCodClaveDespacho &&
+            this.idParte !== this.initialIdParte &&
+            this.idUnidadExterna !== this.initialIdUnidadExterna) {
+
+            const dataApoyo = {
+                COD_CLAVE_DESPACHO: this.codClaveDespacho,
+                ID_PARTE: this.idParte,
+                ID_UNIDAD_EXTERNA: this.idUnidadExterna
+            };
+
+            this.apiService.addApoyo(dataApoyo).subscribe(response => {
+                resolve();
+            }, error => {
+                reject(error);
+            });
+        } else {
+            resolve(); // Si no hay cambios, simplemente resolver la promesa
+        }
+    });
+  }
+
+  insertarVehiculos(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        // Verifica si los datos actuales difieren de los datos iniciales
+        if (this.patente !== this.initialPatente ||
+            this.marca !== this.initialMarca ||
+            this.modelo !== this.initialModelo) {
+
+            const dataVehiculos = {
+                PATENTE: this.patente,
+                MARCA: this.marca,
+                MODELO: this.modelo
+            };
+
+            this.apiService.addVehiculos(dataVehiculos).subscribe(response => {
+                resolve();
+            }, error => {
+                reject(error);
+            });
+        } else {
+            resolve(); // Si no hay cambios, simplemente resolver la promesa
+        }
+    });
+  }
+
+  insertarMonitoreo(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        // Verifica si los datos actuales son diferentes de los datos iniciales
+        if (this.lel !== this.initialLel ||
+            this.o2 !== this.initialO2 ||
+            this.co !== this.initialCo ||
+            this.h2s !== this.initialH2s) {
+
+            const dataMonitoreo = {
+                LEL: this.lel,
+                O2: this.o2,
+                CO: this.co,
+                H2S: this.h2s
+            };
+
+            this.apiService.addMonitoreo(dataMonitoreo).subscribe(response => {
+                resolve();
+            }, error => {
+                reject(error);
+            });
+        } else {
+            resolve(); // Si no hay cambios, simplemente resolver la promesa
+        }
+    });
+  }
+
+
+
 }

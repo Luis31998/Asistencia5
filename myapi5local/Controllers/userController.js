@@ -72,7 +72,18 @@ exports.addBomberos = async (req, res) => {
     }
 };
 
+// Añadir asistencia de bomberos
+exports.addAsistenciaBomberos = async (req, res) => {
+    try {
+        console.log("Datos recibidos:", req.body);
+        const newBombero = await userModel.addAsistenciaBomberos(req.body);
 
+        res.status(201).json(newBombero);
+    } catch (error) {
+        console.error("Error al añadir Parte:", error);  // <-- Este log debería mostrarte el error
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 // Obtener Claves de despacho
@@ -127,14 +138,33 @@ exports.getAllMaquinistas = async (req, res) => {
 };
 
 // Añadir un Parte
+// exports.addPartes = async (req, res) => {
+//     try {
+//         const newParte = await userModel.addPartes(req.body);
+//         res.status(201).json(newParte);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+
 exports.addPartes = async (req, res) => {
     try {
-        const newParte = await userModel.addPartes(req.body);
-        res.status(201).json(newParte);
+        console.log("Intentando añadir un Parte con data:", req.body);
+        const results = await userModel.addPartes(req.body);
+        
+        // Asegúrate de que los resultados contengan la información de la inserción
+        if (results && results.insertId) {
+            res.status(201).json({ ID_PARTE: results.insertId });
+        } else {
+            res.status(500).json({ error: "ID no encontrado en la respuesta de la base de datos." });
+        }
+
     } catch (error) {
+        console.error("Error al añadir Parte:", error);  // <-- Este log debería mostrarte el error
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Añadir un Involucrados
 exports.addInvolucrados = async (req, res) => {
@@ -152,6 +182,7 @@ exports.addUnidadDespacho = async (req, res) => {
         const newUnidadDespacho = await userModel.addUnidadDespacho(req.body);
         res.status(201).json(newUnidadDespacho);
     } catch (error) {
+        console.error("Error al añadir unidaddespacho:", error);  // <-- Este log debería mostrarte el error
         res.status(500).json({ error: error.message });
     }
 };

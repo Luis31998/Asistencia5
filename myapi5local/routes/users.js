@@ -17,6 +17,9 @@ router.get('/partes', userController.getAllPartes);
 router.post('/partes', userController.addPartes); // Suponiendo que tienes una función addPartes en el controlador
 router.put('/partes/:id', userController.updateParte);
 
+// Rutas para Asistencia addAsistenciaBomberos
+router.post('/asistencia', userController.addAsistenciaBomberos);
+
 // Rutas para Claves de Despacho
 router.get('/claves-despacho', userController.getAllClavesDespacho);
 

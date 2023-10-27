@@ -1,6 +1,9 @@
 // api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Parte } from '../interfaces/parte';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -62,10 +65,15 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/bomberos`, data);
   }
 
-  // Guardar partes
-  addPartes(data: any) {
-    return this.http.post(`${this.apiUrl}/partes`, data);
+  // Guardar asistencia de bomberos addAsistenciaBomberos
+  addAsistenciaBomberos(data: any) {
+    return this.http.post(`${this.apiUrl}/asistencia`, data);
   }
+
+  // Guardar partes
+  addPartes(data: any): Observable<Parte> {
+    return this.http.post<Parte>(`${this.apiUrl}/partes`, data);
+}
 
   // Guardar Involucrados
   addInvolucrados(data: any) {

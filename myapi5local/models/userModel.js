@@ -118,6 +118,17 @@ exports.addBomberos = (data) => {
     });
 };
 
+//Añadir asistencia de bomberos
+
+exports.addAsistenciaBomberos = (data) => {
+    return new Promise((resolve, reject) => {
+        db.query('INSERT INTO BOMBERO_PARTE SET ?', data, (error, results) => {
+            if (error) reject(error);
+            resolve(results);
+        });
+    });
+};
+
 // Añadir o Guardar partes
 exports.addPartes = (data) => {
     return new Promise((resolve, reject) => {
