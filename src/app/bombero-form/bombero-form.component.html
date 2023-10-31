@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ modo === 'agregar' ? 'Agregar Bombero' : 'Modificar Bombero' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarFormulario()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="bombero.nombre" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Apellido Paterno</ion-label>
+      <ion-input [(ngModel)]="bombero.pApellido" required></ion-input>
+    </ion-item>
+    <!-- Agregar más campos aquí -->
+    <ion-item>
+      <ion-label position="stacked">Apellido Materno</ion-label>
+      <ion-input [(ngModel)]="bombero.sApellido" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Cargo</ion-label>
+      <ion-select [(ngModel)]="bombero.cargo" required>
+        <ion-select-option *ngFor="let cargo of listaCargos" [value]="cargo.ID_CARGO">{{ cargo.NOMBRE_CARGO }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Tipo Bombero</ion-label>
+      <ion-select [(ngModel)]="bombero.tipoBombero" required>
+        <ion-select-option *ngFor="let tipo of listaTiposBombero" [value]="tipo.ID_TIPO_BOMBERO">{{ tipo.NOMBRE_TIPO_BOMBERO }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="guardarBombero()">Guardar</ion-button>
+</ion-content>

@@ -1,0 +1,69 @@
+/* Estilo para el título principal */
+.main-title {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para el botón "Agregar bombero" */
+.add-bombero-button {
+    background-color: #007bff; /* Cambia el color de fondo a azul */
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold;
+    border: none; /* Elimina el borde del botón */
+    padding: 10px 20px; /* Aumenta el espacio interno del botón */
+    border-radius: 5px; /* Agrega bordes redondeados al botón */
+  }
+  
+  
+  /* Estilo para los demás botones */
+  .custom-button {
+    background-color: #4CAF50; /* Cambia el color de fondo a verde */
+    color: white; /* Cambia el color del texto a blanco */
+  }
+  /* Estilo para el botón "Modificar" */
+.boton-modificar {
+    background-color: #28a745; /* Cambia el color de fondo a verde */
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold;
+    border: none; /* Elimina el borde del botón */
+    padding: 5px 10px; /* Ajusta el espacio interno del botón */
+    border-radius: 4px; /* Agrega bordes redondeados al botón */
+  }
+  
+  /* Estilo para el botón "Borrar" */
+  .boton-borrar {
+    background-color: #dc3545; /* Cambia el color de fondo a rojo */
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold;
+    border: none; /* Elimina el borde del botón */
+    padding: 5px 10px; /* Ajusta el espacio interno del botón */
+    border-radius: 4px; /* Agrega bordes redondeados al botón */
+  }
+  
+  
+  /* Estilo para la tabla de bomberos */
+  .bombero-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  /* Estilo para la tabla de bomberos con líneas de separación */
+.bombero-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .bombero-table th,
+  .bombero-table td {
+    border: 1px solid #ddd; /* Agregar bordes a las celdas */
+    padding: 8px;
+    text-align: left;
+  }  
+  
+  /* Estilo para las filas de la tabla */
+  .nombre-bombero {
+    font-weight: bold;
+  }
+  
+  /* Otros estilos personalizados según tus preferencias */
+  

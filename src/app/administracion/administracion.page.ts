@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api-bd.service';
-
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { BomberoFormComponent } from '../bombero-form/bombero-form.component';
 
 @Component({
   selector: 'app-administracion',
@@ -19,10 +21,22 @@ export class AdministracionPage implements OnInit {
     tipoBombero: ''
   };
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router, private modalController: ModalController) { }
 
   ngOnInit() {
     this.obtenerBomberos();
+  }
+
+  async abrirFormularioBombero(modo: 'agregar' | 'modificar', bombero?: any) {
+    const modal = await this.modalController.create({
+      component: BomberoFormComponent,
+      componentProps: {
+        modo, // 'agregar' o 'modificar'
+        bombero // Datos del bombero a modificar o vacío para agregar
+      }
+    });
+
+    await modal.present();
   }
 
   obtenerBomberos(): void {
@@ -32,6 +46,17 @@ export class AdministracionPage implements OnInit {
     error => {
       console.error('Hubo un error al obtener los datos:', error);
     });
+  }
+
+  cerrarSesion(){
+    this.router.navigate([''])
+  }
+  
+  inicio(){
+    this.router.navigate(['home'])
+  }
+  parte(){
+    this.router.navigate(['partes'])
   }
 
  modificarBombero(bombero: any): void {

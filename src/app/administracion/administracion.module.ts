@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AdministracionPageRoutingModule } from './administracion-routing.module';
 
 import { AdministracionPage } from './administracion.page';
+import { BomberoFormComponent } from '../bombero-form/bombero-form.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { AdministracionPage } from './administracion.page';
     IonicModule,
     AdministracionPageRoutingModule
   ],
-  declarations: [AdministracionPage]
+  declarations: [AdministracionPage, BomberoFormComponent]
 })
 export class AdministracionPageModule {}

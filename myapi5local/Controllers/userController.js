@@ -172,6 +172,7 @@ exports.addInvolucrados = async (req, res) => {
         const newInvolucrado = await userModel.addInvolucrados(req.body);
         res.status(201).json(newInvolucrado);
     } catch (error) {
+        console.error("Error al añadir involucrado:", error);  // <-- Este log debería mostrarte el error
         res.status(500).json({ error: error.message });
     }
 };

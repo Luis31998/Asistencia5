@@ -1,35 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div id="fondoheader">
+    <ion-header id="main-content2">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title id="titulopage">Administrar Bomberos</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+  <ion-menu contentId="main-content2">
+    <ion-header id="headermenu">
+      <ion-toolbar>
+        <h2>Asistencia 5</h2>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <h4>Menu</h4>
+      <ion-button expand="full" fill="outline" (click)="inicio()" class="custom-button">Inicio</ion-button>
+      <ion-button expand="full" fill="outline" (click)="parte()" class="custom-button">Nuevo parte</ion-button>
+      <ion-button expand="full" fill="outline" class="custom-button">Origen y causa</ion-button>
+      <ion-button expand="full" fill="outline" (click)="cerrarSesion()" class="custom-button">Cerrar sesión</ion-button>
+    </ion-content>
+  </ion-menu>
 
-
-<ion-content>
-  <b>Administrar Bomberos</b>
+  <p></p>
+  <h1 class="main-title">Administrar Bomberos</h1>
+  <p></p>
   <br>
-  <ion-button (click)="agregarBombero()">Agregar bombero</ion-button>
+  <ion-button (click)="agregarBombero()" class="add-bombero-button">Agregar bombero</ion-button>
+  <br>
+  <app-bombero-form></app-bombero-form>
   <ion-grid>
+    <p></p><p></p>
     <ion-row>
-      <ion-col>
-        <ion-label>Nombre bombero</ion-label>
-      </ion-col>
-      <ion-col>
-        <ion-label>Accion a realizar</ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ul>
-        <li *ngFor="let bombero of listaDeBomberos">
-          {{ bombero.NOMBRE }} {{ bombero.P_APELLIDO }} 
-          <!-- Asume que cada 'bombero' tiene una propiedad 'nombre' -->
-          
-          <button (click)="modificarBombero(bombero)">Modificar</button>
-          <button (click)="borrarBombero(bombero.idBombero)">Borrar</button>
-          <!-- Asume que cada 'bombero' tiene una propiedad 'id' para identificarlo -->
-        </li>
-      </ul>
-      <!-- crear ts de multiplicar columna por cada bombero y mostrar el dato -->
+      <table class="bombero-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bombero of listaDeBomberos">
+            <td>
+              <span class="nombre-bombero">{{ bombero.NOMBRE }} {{ bombero.P_APELLIDO }}</span>
+            </td>
+            <td>
+              <ion-button expand="full" fill="outline" (click)="abrirFormularioBombero('modificar', bombero)" class="boton-modificar">Modificar</ion-button>
+              <ion-button expand="full" fill="outline" (click)="borrarBombero(bombero.idBombero)" class="boton-borrar">Borrar</ion-button>
+            </td>
+          </tr>          
+        </tbody>
+      </table>
     </ion-row>
   </ion-grid>
-
 </ion-content>
-
-<p>
-
-</p>

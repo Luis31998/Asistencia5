@@ -323,7 +323,7 @@ export class PartesPage implements OnInit {
             this.observacionInvolucrado !== this.initialObservacionInvolucrado) {
             
             const dataInvolucrados = {
-              T_INVOLUCRADO: this.rutInvolucrado, 
+              RUT_INVOLUCRADO: this.rutInvolucrado, 
               NOMBRE: this.nombreInvolucrado,
               P_APELLIDO: this.primerApellidoInvolucrado,
               S_APELLIDO: this.segundoApellidoInvolucrado,

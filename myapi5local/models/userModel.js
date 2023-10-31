@@ -142,7 +142,7 @@ exports.addPartes = (data) => {
 // Añadir Involucrados
 exports.addInvolucrados = (data) => {
     return new Promise((resolve, reject) => {
-        db.query('INSERT INTO PARTE_INVOLUCRADO SET ?', data, (error, results) => {
+        db.query('INSERT INTO INVOLUCRADO SET ?', data, (error, results) => {
             if (error) reject(error);
             resolve(results);
         });
